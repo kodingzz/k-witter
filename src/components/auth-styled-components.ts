@@ -24,7 +24,7 @@ width: 100%;
 export const Input = styled.input`
 padding: 10px 20px;
 border: none;
-border-radius: 10px;
+border-radius: 20px;
 font-size: 20px;
 
 &[type="submit"]{
@@ -32,6 +32,7 @@ font-size: 20px;
     &:hover{
         opacity: 0.7;
     }
+    background-color: #1B90EC;
 }
 `
 export const Error = styled.span`

@@ -4,6 +4,7 @@ import { FirebaseError } from 'firebase/app'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from './firebase'
 import { Title,Wrapper,Form, Input,Switcher,Error } from '../components/auth-styled-components'
+import GithubButton from '../components/github-mark'
 
 
 //  에러를 더 예쁘게 설명해주기 위함
@@ -62,8 +63,10 @@ export default function Login(){
                 <Input name="button" type='submit' value={isLoading ? 'Loading...' : 'Log In'}/>
             </Form>
             {error!=='' && <Error>{errors[error] }</Error> }
+            <GithubButton></GithubButton>
             <Switcher>
                 <Link  to="/signup">Don't have an Account?</Link>
+              
             </Switcher>
         </Wrapper>
     )

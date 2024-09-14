@@ -4,6 +4,7 @@ import { auth } from './firebase'
 import { Link, useNavigate } from 'react-router-dom'
 import { FirebaseError } from 'firebase/app'
 import { Title,Wrapper,Form, Input,Switcher,Error } from '../components/auth-styled-components'
+import GithubButton from '../components/github-mark'
 
 
 
@@ -73,6 +74,8 @@ export default function Signup(){
                 <Input name="button" type='submit' value={isLoading ? 'Loading...' : 'Sign Up'}/>
             </Form>
             {error!=='' && <Error>{error}</Error> }
+            <GithubButton></GithubButton>
+
             <Switcher>
                 <Link to="/login">Do you have an Account?</Link>
             </Switcher>
