@@ -7,7 +7,7 @@ height: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
-width: 450px;
+width: 500px;
 padding: 50px 0px;
 `
 export const Title = styled.h1`
@@ -42,7 +42,13 @@ font-weight:600;
 `
 export const Switcher =styled.div`
 margin-top: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+color:#1B90EC;
+gap: 15px;
 & a{
     color:#3675AE;
 }
 `
+

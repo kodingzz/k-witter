@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FirebaseError } from 'firebase/app'
 import { Title,Wrapper,Form, Input,Switcher,Error } from '../components/auth-styled-components'
 import GithubButton from '../components/github-mark'
-
+import GoogleButton from '../components/google-mark'
 
 
 
@@ -15,6 +15,7 @@ export default function Signup(){
     const [password,setPassword]= useState('');
     const [isLoading,setIsLoading]= useState(false);
     const [error,setError]= useState('');
+    
     const navigate= useNavigate();
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
@@ -75,9 +76,11 @@ export default function Signup(){
             </Form>
             {error!=='' && <Error>{error}</Error> }
             <GithubButton></GithubButton>
+            <GoogleButton></GoogleButton>
 
             <Switcher>
                 <Link to="/login">Do you have an Account?</Link>
+                <Link  to="/resetpassword">Forgot your password?</Link>
             </Switcher>
         </Wrapper>
     )

@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FirebaseError } from 'firebase/app'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import {  signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from './firebase'
-import { Title,Wrapper,Form, Input,Switcher,Error } from '../components/auth-styled-components'
+import { Title,Wrapper,Form, Input,Switcher,Error} from '../components/auth-styled-components'
 import GithubButton from '../components/github-mark'
+import GoogleButton from '../components/google-mark'
+
 
 
 //  에러를 더 예쁘게 설명해주기 위함
@@ -12,61 +14,97 @@ const errors:{[key:string]:string} ={
     'auth/invalid-login-credentials' : 'Email or password is incorrect',
 }
 
-
 export default function Login(){
-    const [email,setEmail]= useState('');
-    const [password,setPassword]= useState('');
-    const [isLoading,setIsLoading]= useState(false);
-    const [error,setError]= useState('');
+
     const navigate= useNavigate();
+    const [user,setUser]= useState({
+        email : '',
+        password : '',
+        isLoading: false,
+        error: '',
+    })
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        if(isLoading  || email==='' || password==='') return;
-        setError('');   
-
+        if(user.isLoading  || user.email==='' || user.password==='') return;
+        setUser(prev=>{
+            return{
+              ...prev,
+              error:'',
+            } 
+          })
         try{
-        setIsLoading(true);
-        await signInWithEmailAndPassword(auth,email,password);
+        setUser(prev=>{
+            return{
+              ...prev,
+              isLoading:true,
+            } 
+
+          })
+        await signInWithEmailAndPassword(auth,user.email,user.password);
         navigate('/');
         }
         catch(e){
             if(e instanceof FirebaseError){
                 console.log(e.code,e.message);
-                setError(e.code);
+                setUser(prev=>{
+                    return{
+                      ...prev,
+                      error:e.code,
+                    } 
+                  })
             }
         }
         finally{
-            setEmail('');
-            setPassword('');
-            setIsLoading(false);
+            setUser(prev=>{
+              return{
+                ...prev,
+                email: '',
+                password:'',
+                isLoading : false,
+              } 
+            })
         }
 
     }
-    function handleChange(e:React.ChangeEvent<HTMLInputElement>){
+    
+    function handleChangeInput(e:React.ChangeEvent<HTMLInputElement>){
         //  코드 이해 잘 안감? 타입 지정? 
         const  {target:{name,value}} = e;
         
          if(name==='email'){
-            setEmail(value);
+            setUser(prev=>{
+                return{
+                  ...prev,
+                  email:value,
+                } 
+              })
         }
         else if(name==='password'){
-            setPassword(value);
+            setUser(prev=>{
+                return{
+                  ...prev,
+                  password:value,
+                } 
+              })
         }
     }
     return (
         <Wrapper>
             <Title>Login in to Kwitter</Title>
             <Form onSubmit={handleSubmit}>
-                <Input name="email" placeholder='email' type='email' required value={email} onChange={handleChange}/> 
-                <Input name="password" placeholder="password" type='password' required value={password} onChange={handleChange}/>
-                <Input name="button" type='submit' value={isLoading ? 'Loading...' : 'Log In'}/>
+                <Input name="email" placeholder='email' type='email' required value={user.email} onChange={handleChangeInput}/> 
+                <Input name="password" placeholder="password" type='password' required value={user.password} onChange={handleChangeInput}/>
+                <Input name="button" type='submit' value={user.isLoading ? 'Loading...' : 'Log In'}/>
             </Form>
-            {error!=='' && <Error>{errors[error] }</Error> }
+            {user.error!=='' && <Error>{errors[user.error] }</Error> }
             <GithubButton></GithubButton>
+            <GoogleButton></GoogleButton>
+
             <Switcher>
                 <Link  to="/signup">Don't have an Account?</Link>
-              
+                <Link  to="/resetpassword">Forgot your password?</Link>
+               
             </Switcher>
         </Wrapper>
     )

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import LoadingScreen from './components/LoadingScreen'
 import { auth } from './routes/firebase'
 import ProtectedRoute from './components/ProtectedRoute'
+import ResetPassword from './components/resetPassword'
 
 
 const GlobalStyles = createGlobalStyle` 
@@ -51,7 +52,12 @@ const router =createBrowserRouter([{
 {
   path:'/signup',
   element:<Signup/>,
-}])
+},
+{
+  path:'/resetpassword',
+  element:<ResetPassword/>,
+}
+])
 
 
 function App() {
