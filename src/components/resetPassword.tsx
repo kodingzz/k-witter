@@ -28,7 +28,6 @@ export default function ResetPassword(){
         }
         catch(e){
             if(e instanceof FirebaseError){
-                console.log(e.code,e.message);
                 setError(e.code);
             }
         }
