@@ -8,7 +8,7 @@ import GithubButton from '../components/github-mark'
 import GoogleButton from '../components/google-mark'
 
 
-function userReducer(state,action){
+function userReducer(state: any,action: { type: string; value: any }){
     if(action.type==='ERROR'){
         return {
             ...state,
@@ -81,7 +81,7 @@ export default function Signup(){
             if(e instanceof FirebaseError) userDispatch({type:'ERROR',value:e.message})
         }
         finally{
-            userDispatch({type:'INIT'})
+            userDispatch({type:'INIT', value: ''})
         }
 
     }

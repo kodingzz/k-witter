@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "firebase deploy",
+    "predeploy" :"npm run build"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.34",
