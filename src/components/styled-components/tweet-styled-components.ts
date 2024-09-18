@@ -79,7 +79,8 @@ export const EditTextLabel =styled.label`
 export const EditTextInput = styled.input`
     
 `
-
+export const FileCondition =styled.div`
+`
 
 export const CancelBtn = styled.button`
 cursor: pointer;

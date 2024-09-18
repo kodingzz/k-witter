@@ -5,6 +5,7 @@ import { deleteDoc, deleteField, doc, updateDoc } from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import { Wrapper, Column,Row,UserName,UploadedDate,Payload,Photo,Div,DeleteBtn,EditBtn,EditTextArea,EditTextLabel,EditTextInput,CancelBtn,UpdateBtn,InputItem,Wrapper2,DeleteImg} from "./styled-components/tweet-styled-components";
+import { FileCondition } from "./styled-components/post-tweet-styled-components";
 
 
 export default function Tweet({userName,tweet,photo,createdAt,userId,docId}:ITweets){
@@ -197,7 +198,10 @@ export default function Tweet({userName,tweet,photo,createdAt,userId,docId}:ITwe
            </Column>
            
            <Wrapper2>
-           {edit.file ? "Photo added ✅" : ''}
+                <FileCondition>
+                    {edit.file ? "Photo added ✅" : ''}
+
+                </FileCondition>
                 <EditTextLabel htmlFor="editFile">
                 <InputItem>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
@@ -206,7 +210,7 @@ export default function Tweet({userName,tweet,photo,createdAt,userId,docId}:ITwe
                 </InputItem>
                 </EditTextLabel>
                 <EditTextInput id="editFile" type="file" accept="image/*" hidden onChange={handleFileEdit} />
-                <UpdateBtn onClick={handleUpdate}>Update</UpdateBtn>
+                <UpdateBtn onClick={handleUpdate}>{edit.isLoading ? 'Updating...' : 'Update'}</UpdateBtn>
                 <CancelBtn onClick={handleCancel}>Cancel</CancelBtn>
            </Wrapper2>
            </>
