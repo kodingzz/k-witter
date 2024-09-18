@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FirebaseError } from 'firebase/app'
 import {  signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from './firebase'
-import { Title,Wrapper,Form, Input,Switcher,Error} from '../components/auth-styled-components'
+import { Title,Wrapper,Form, Input,Switcher,Error} from '../components/styled-components/auth-styled-components'
 import GithubButton from '../components/github-mark'
 import GoogleButton from '../components/google-mark'
 

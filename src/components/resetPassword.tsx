@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FirebaseError } from 'firebase/app'
 import { sendPasswordResetEmail } from 'firebase/auth'
-import { Title,Wrapper,Form, Input,Switcher,Error} from '../components/auth-styled-components'
+import { Title,Wrapper,Form, Input,Switcher,Error} from './styled-components/auth-styled-components'
 import { auth } from '../routes/firebase'
 
 

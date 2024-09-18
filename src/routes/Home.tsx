@@ -5,8 +5,8 @@ import TimeLine from '../components/timeline';
 
 const Wrapper= styled.div`
     display: grid;
-    grid-template-rows: 1fr 5fr;
-    gap:50px;
+    grid-template-rows: 1fr 6fr;
+    gap:30px;
 `
 
 
