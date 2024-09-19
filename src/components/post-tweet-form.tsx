@@ -42,6 +42,8 @@ export  default function PostTweetForm(){
     async function handleSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
         const user= auth.currentUser;
+        console.log(user);
+        
         
         if(!user|| post.isLoading  || post.tweet.length>300  || post.tweet.trim()==='')return;
        
@@ -59,6 +61,7 @@ export  default function PostTweetForm(){
                     userName :  user.displayName || 'Anonymous',
                     userId :user.uid,
                 })
+
                 
                 if(post.file){
                     const locationRef= ref(storage,`tweets/${user.uid}/${doc.id}`);

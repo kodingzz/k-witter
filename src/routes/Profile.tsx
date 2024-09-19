@@ -4,7 +4,7 @@ import { auth, db, storage } from "./firebase"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import  { ITweets } from "../components/timeline";
-import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, limit, onSnapshot, orderBy, query, Unsubscribe, where } from "firebase/firestore";
 import Tweet from "../components/tweet";
 
 
@@ -32,7 +32,6 @@ svg{
 const AvatarImg = styled.img`
     width: 100%;
     height: 100%;
-    object-fit: fill;
 
 `
 const AvatarInput =styled.input`
@@ -126,27 +125,36 @@ export default function Profile(){
             setAvatar(url);
         }
     }
-    async function fetchTweets() {
-        //  쿼리해서 데이터를 가져올때 filtering 해야할 경우  firestore는 flexible 하기 때문에  firestore에게 index를 만들라고 요청해야함
-        const tweetQuery =query(collection(db,'tweets'),where('userId','==',user?.uid), orderBy('createdAt',"desc"),limit(25));
+    
+    useEffect(()=>{
+        let unsubscribe : Unsubscribe | null  = null;
+        async function fetchTweets() {
+            //  쿼리해서 데이터를 가져올때 filtering 해야할 경우 firestore에게 index를 만들라고 요청해야함
+            const tweetQuery =query(collection(db,'tweets'),where('userId','==',user?.uid), orderBy('createdAt',"desc"),limit(25));
+            
+            // const snapshot = await  getDocs(tweetQuery);
+            unsubscribe = await onSnapshot(tweetQuery,snapshot=>{
+                const tweets= snapshot.docs.map(doc=>{
+                    const {createdAt,photo, tweet,userId,userName} = doc.data();
+                    return {
+                        createdAt,
+                        photo,
+                        tweet,
+                        userId,
+                        userName,
+                        docId: doc.id,
+                    }
+                })
+                setTweet(tweets);
+            })
+        }
         
-        const snapshot = await  getDocs(tweetQuery);
-        
-        const tweets= snapshot.docs.map(doc=>{
-            const {createdAt,photo, tweet,userId,userName} = doc.data();
-            return {
-                createdAt,
-                photo,
-                tweet,
-                userId,
-                userName,
-                docId: doc.id,
-            }
-        })
-        setTweet(tweets);
-    }
-
-    useEffect(()=>{fetchTweets()},[]);
+        fetchTweets();
+        return ()=>{
+            unsubscribe && unsubscribe();
+        }
+    },[]);
+    
     return <Wrapper>
         <AvatarUpload htmlFor="avatar"> 
             {avatar  

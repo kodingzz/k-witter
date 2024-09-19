@@ -6,6 +6,7 @@ import { FirebaseError } from 'firebase/app'
 import { Title,Wrapper,Form, Input,Switcher,Error } from '../components/styled-components/auth-styled-components'
 import GithubButton from '../components/github-mark'
 import GoogleButton from '../components/google-mark'
+import VerificationModal from '../components/Verification-Modal'
 
 
 function userReducer(state: any,action: { type: string; value: any }){
@@ -67,7 +68,7 @@ export default function Signup(){
         userDispatch({type:'ERROR',value:''})
 
         try{
-            userDispatch({type:'ERRORTRUE',value:true})
+            userDispatch({type:'ERROR',value:true})
      //  1) create an account
         const credentials=await createUserWithEmailAndPassword(auth,user.email,user.password);
       //  2) set the name of the user.
@@ -101,13 +102,14 @@ export default function Signup(){
             userDispatch({type:'PASSWORD',value:value})
         }
     }
+    
     return (
         <Wrapper>
             <Title>Sign in to Kwitter</Title>
             <Form onSubmit={handleSubmit}>
                 
                 <Input name="name" placeholder='Name' type="text" required value={user.name} onChange={handleChange}/> 
-                <Input name="email" placeholder='Email' type='email' required value={user.email} onChange={handleChange}/> 
+                <Input name="email" placeholder='Email' type='email' required value={user.email} onChange={handleChange}/>            
                 <Input name="password" placeholder="Password" type='password' required value={user.password} onChange={handleChange}/>
                 <Input name="button" type='submit' value={user.isLoading ? 'Loading...' : 'Sign Up'}/>
             </Form>

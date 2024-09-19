@@ -17,6 +17,7 @@ export default function Tweet({userName,tweet,photo,createdAt,userId,docId}:ITwe
             hour:'numeric',
         })
     const user= auth.currentUser;
+    
     const [edit,setEdit]= useState<{
         isLoading: boolean,
         isEdit: boolean,
@@ -95,7 +96,7 @@ export default function Tweet({userName,tweet,photo,createdAt,userId,docId}:ITwe
                         }
                     })  
                     await updateDoc(doc(db,"tweets",docId),{tweet: edit.tweet});
-    
+
                     if(edit.file){
                         const locationRef= ref(storage,`tweets/${userId}/${docId}`);
                        const uploadResult= await uploadBytes(locationRef,edit.file);
@@ -142,6 +143,7 @@ export default function Tweet({userName,tweet,photo,createdAt,userId,docId}:ITwe
              <Column>
              <Row>
                 <Div>
+                
                 <UserName>{userName}</UserName>
                 <UploadedDate>{updatedDate}</UploadedDate>
                 </Div>

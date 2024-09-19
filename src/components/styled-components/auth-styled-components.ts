@@ -14,6 +14,7 @@ export const Title = styled.h1`
 font-size: 42px;
 `
 export const Form = styled.form`
+position: relative;
 margin-top: 50px;
 display: flex;
 flex-direction: column;
@@ -26,14 +27,16 @@ padding: 10px 20px;
 border: none;
 border-radius: 20px;
 font-size: 20px;
-
 &[type="submit"]{
     cursor: pointer;
     &:hover{
         opacity: 0.7;
     }
     background-color: #1B90EC;
+
 }
+
+
 `
 export const Error = styled.span`
 margin-top:40px;
@@ -51,4 +54,5 @@ gap: 15px;
     color:#3675AE;
 }
 `
+
 

@@ -32,7 +32,7 @@ export default function GithubButton(){
        
         try{
             const provider = new GithubAuthProvider();
-            //  await signInWithPopup(auth,provider);
+            //  await signInWithRedirect(auth,provider);
             await signInWithPopup(auth,provider);
             navigate('/');
         }
