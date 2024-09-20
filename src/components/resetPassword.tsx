@@ -54,8 +54,7 @@ export default function ResetPassword(){
             </Form>
             {error!=='' && <Error>{error}</Error> }
             <Switcher>
-            <Link to="/login">Do you have an Account?</Link>
-            <Link to='/signup'>Don't have an Account?</Link>
+            <Link to="/begin">돌아가기</Link>
             </Switcher>
         </Wrapper>
     )

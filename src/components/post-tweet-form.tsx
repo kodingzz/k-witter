@@ -60,14 +60,16 @@ export  default function PostTweetForm(){
                     createdAt:  Date.now(),
                     userName :  user.displayName || 'Anonymous',
                     userId :user.uid,
+                    profileImg: user.photoURL,
                 })
-
+                
                 
                 if(post.file){
                     const locationRef= ref(storage,`tweets/${user.uid}/${doc.id}`);
                    const uploadResult= await uploadBytes(locationRef,post.file);
                   const url= await getDownloadURL(uploadResult.ref);
-                  await updateDoc(doc,{photo:url});
+                  await updateDoc(
+                    doc,{photo:url});
                 }
             }
 

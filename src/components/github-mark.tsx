@@ -13,7 +13,8 @@ const Button =styled.button`
     justify-content: center;
     align-items: center;
     gap: 5px;
-    width: 100%;
+    width:100%;
+
     font-weight: 600;
     font-size: 18px;
     &:hover{

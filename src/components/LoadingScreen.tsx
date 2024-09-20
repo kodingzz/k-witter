@@ -7,16 +7,19 @@ align-items: center;
 height: 100vh;
 
 `
-const Text = styled.span`
-color: red;
-font-size: 2rem;
+const Div = styled.div`
+
+`
+const Logo= styled.img`
+    width: 100px;
+    height: 100px;
 `
 
 export default  function LoadingScreen(){
 
     return <Wrapper>
-       <Text>
-       Loading...
-        </Text> 
+       <Div>
+       <Logo src="twitter.svg"/>
+        </Div> 
         </Wrapper>
 }

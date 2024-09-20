@@ -12,7 +12,7 @@ import LoadingScreen from './components/LoadingScreen'
 import { auth } from './routes/firebase'
 import ProtectedRoute from './components/ProtectedRoute'
 import ResetPassword from './components/resetPassword'
-import Login2 from './routes/Login2'
+import Begin from './routes/Begin'
 
 
 const GlobalStyles = createGlobalStyle` 
@@ -60,7 +60,7 @@ const router =createBrowserRouter([{
 },
 {
   path:'/begin',
-  element:<Login2/>,
+  element:<Begin/>,
 }
 ])
 

@@ -35,17 +35,14 @@ const MenuItem = styled.div`
     }
 `
 
-
-
-
 export default function Layout(){
     const navigate= useNavigate();
 
-    function handleLogout(){
+    async function handleLogout(){
         //  로그아웃 
         const ok = confirm('Are you sure you want to logout?');
         if(ok){
-            auth.signOut();
+            await auth.signOut();
             navigate('/begin');
         }
     }

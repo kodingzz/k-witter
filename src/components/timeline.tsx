@@ -1,7 +1,7 @@
 import { collection, limit, onSnapshot, orderBy, query, Unsubscribe } from "firebase/firestore";
 import { useEffect, useState } from "react"
 import styled from "styled-components"
-import { db } from "../routes/firebase";
+import { auth, db } from "../routes/firebase";
 import Tweet from "./tweet";
 
 const Wrapper =styled.div`
@@ -19,12 +19,13 @@ export interface ITweets {
     tweet:string;
     userId:string;
     userName:string;
+    profileImg?:string;
 }
 
 export default function TimeLine(){
     // tweet의 타입은 ITweets interface 형태를 가진다
     const [tweet,setTweet] =useState<ITweets[]>([]);
-   
+    const user= auth.currentUser;
     
     useEffect(()=>{
         let unsubscribe : Unsubscribe | null = null;
@@ -52,7 +53,7 @@ export default function TimeLine(){
             // 해당 컴포넌트가 마운트될때 구독되고 언마운트 될때 구독 취소
             unsubscribe= await onSnapshot(tweetsQuery,(snapshot)=>{
                     const tweets=snapshot.docs.map(doc=>{
-                            const {createdAt,photo,tweet,userId,userName} = doc.data();
+                            const {createdAt,photo,tweet,userId,userName,profileImg} = doc.data();
                             return {
                                 docId: doc.id,
                                 createdAt,
@@ -60,6 +61,7 @@ export default function TimeLine(){
                                 tweet,
                                 userId,
                                 userName,
+                                profileImg ,
                             }
                         });
                     // 4. 매핑되어 배열에 저장된 tweets을 setTweet

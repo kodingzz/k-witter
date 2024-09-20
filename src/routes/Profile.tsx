@@ -4,7 +4,7 @@ import { auth, db, storage } from "./firebase"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import  { ITweets } from "../components/timeline";
-import { collection, getDocs, limit, onSnapshot, orderBy, query, Unsubscribe, where } from "firebase/firestore";
+import { collection, getDocs, limit, onSnapshot, orderBy, query, Unsubscribe, updateDoc, where } from "firebase/firestore";
 import Tweet from "../components/tweet";
 
 
@@ -110,6 +110,7 @@ export default function Profile(){
         }
 
     }
+   
 
 
     async function handleAvatarChange(e:React.ChangeEvent<HTMLInputElement>){
@@ -128,6 +129,7 @@ export default function Profile(){
     
     useEffect(()=>{
         let unsubscribe : Unsubscribe | null  = null;
+
         async function fetchTweets() {
             //  쿼리해서 데이터를 가져올때 filtering 해야할 경우 firestore에게 index를 만들라고 요청해야함
             const tweetQuery =query(collection(db,'tweets'),where('userId','==',user?.uid), orderBy('createdAt',"desc"),limit(25));
@@ -135,7 +137,8 @@ export default function Profile(){
             // const snapshot = await  getDocs(tweetQuery);
             unsubscribe = await onSnapshot(tweetQuery,snapshot=>{
                 const tweets= snapshot.docs.map(doc=>{
-                    const {createdAt,photo, tweet,userId,userName} = doc.data();
+                  
+                    const {createdAt,photo, tweet,userId,userName,profileImg} = doc.data();
                     return {
                         createdAt,
                         photo,
@@ -143,6 +146,7 @@ export default function Profile(){
                         userId,
                         userName,
                         docId: doc.id,
+                        profileImg
                     }
                 })
                 setTweet(tweets);
@@ -153,7 +157,7 @@ export default function Profile(){
         return ()=>{
             unsubscribe && unsubscribe();
         }
-    },[]);
+    },[avatar]);
     
     return <Wrapper>
         <AvatarUpload htmlFor="avatar"> 
