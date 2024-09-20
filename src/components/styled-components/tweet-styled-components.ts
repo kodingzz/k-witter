@@ -6,7 +6,7 @@ export const Wrapper =styled.div`
    padding: 20px;
    border: 1px solid rgba(255,255,255,0.5);
    border-radius:5px;
-   width: 100%;
+   width: 95%;
 `
 export const Column =styled.div`
     display: flex;
@@ -143,3 +143,9 @@ export const DeleteImg = styled.div`
     color: tomato;
     cursor: pointer;
 `   
+
+export const AvatarImg =styled.img`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+`

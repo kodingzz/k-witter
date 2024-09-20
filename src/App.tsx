@@ -12,6 +12,7 @@ import LoadingScreen from './components/LoadingScreen'
 import { auth } from './routes/firebase'
 import ProtectedRoute from './components/ProtectedRoute'
 import ResetPassword from './components/resetPassword'
+import Login2 from './routes/Login2'
 
 
 const GlobalStyles = createGlobalStyle` 
@@ -56,6 +57,10 @@ const router =createBrowserRouter([{
 {
   path:'/resetpassword',
   element:<ResetPassword/>,
+},
+{
+  path:'/begin',
+  element:<Login2/>,
 }
 ])
 

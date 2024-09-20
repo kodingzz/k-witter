@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Button =styled.button`
     cursor: pointer;
-    margin-top: 50px;
+    margin-top: 20px;
     border: none;
     border-radius: 20px;
     padding: 6px 12px;

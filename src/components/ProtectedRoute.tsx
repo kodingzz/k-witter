@@ -7,7 +7,7 @@ import { auth } from '../routes/firebase';
 export default function ProtectedRoute({children} : {children : React.ReactNode}){
     //  로그인 되어있지 않은 상태
     if(auth.currentUser===null){
-        return <Navigate to="/login"/>
+        return <Navigate to="/begin"/>
     }
     return children;
 }

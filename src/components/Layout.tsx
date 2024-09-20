@@ -46,7 +46,7 @@ export default function Layout(){
         const ok = confirm('Are you sure you want to logout?');
         if(ok){
             auth.signOut();
-            navigate('/login');
+            navigate('/begin');
         }
     }
 

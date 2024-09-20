@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { useReducer } from 'react'
+import { useReducer, useState } from 'react'
 import { auth } from './firebase'
 import { Link, useNavigate } from 'react-router-dom'
 import { FirebaseError } from 'firebase/app'
@@ -59,6 +59,7 @@ export default function Signup(){
         isLoading: false,
         error: '',
     });
+    
 
     const navigate= useNavigate();
 
